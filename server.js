@@ -15,11 +15,42 @@ const db = mysql.createConnection(
         user: 'root',
         //your password
         password:'password',
-        database: 'candidate'
+        database: 'election'
     },
     console.log('Connected to the election database.')
 );
+//Get all rows into an object array
+// db.query(`SELECT * FROM candidates`, (err, rows) => {
+//     console.log(rows);
+// })
 
+//GET a single candidate
+// db.query(`SELECT * FROM candidates WHERE id =1`, (err, row) => {
+//     if(err) {
+//         console.log(err);
+//     }
+//     console.log(row);
+// })
+
+//Delete a candidate, return shows affectedRows: 1
+// db.query(`DELETE FROM candidates WHERE id = ?`, 1, (err, result) => {
+//     if(err) {
+//         console.log(err);
+//     }
+//     console.log(result);
+// })
+
+//Create a candidate
+const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected)
+            VALUES (?,?,?,?)`;
+const params = [1, 'Ronald', 'Firbank', 1];
+
+db.query(sql, params, (err, result) => {
+    if(err) {
+        console.log(err);
+    }
+    console.log(result);
+})
 
 //default response for any other request (not found)
 app.use((req, res) => {
